@@ -318,6 +318,12 @@ Capy Canvas's original code and non-brand assets are licensed under
 retains its own terms; our dual license does not relicense dependencies.
 The project-owned capybara mark is a separate exception under [BRANDING.md](BRANDING.md).
 
+## Linux decoder confinement
+
+The unmodified crates.io `seccompiler` 0.5.0 uses Apache-2.0 OR BSD-3-Clause.
+Its original license text and notices are included in the generated native
+dependency notices; its code is not vendored into this repository.
+
 ## Rust AV1 decoding — BSD-2-Clause
 
 `rav1d` 1.1.0 supplies AVIF decoding. The portability patch and upstream
@@ -880,7 +886,7 @@ Alliance for Open Media Patent License 1.0
 
 ## ZIP package reading — MIT
 
-`zip` 8.6.0 is an unmodified crates.io dependency from
+`zip` 9.0.5 is an unmodified crates.io dependency from
 &lt;https://github.com/zip-rs/zip2&gt;. The Capy package reader applies its restricted
 header and inventory rules around this archive parser. Its original notice follows.
 
@@ -938,4 +944,13 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ```
+
+
+### Portable ICC transforms — BSD-3-Clause OR Apache-2.0
+
+`moxcms` 0.9.1 by Radzivon Bartoshyk is vendored with the Lab table-encoding
+correction documented in [vendor/README.md](vendor/README.md#icc-lab-table-encoding).
+Its original [BSD-3-Clause license](vendor/moxcms/LICENSE.md) and
+[Apache-2.0 license](vendor/moxcms/LICENSE-APACHE.md) are retained. Recipients may
+choose either license. No external ICC profile is redistributed with this fix.
 </pre></html>

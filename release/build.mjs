@@ -5,7 +5,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
-import { inventory, readJson, root, sha256, verify } from "./verify.mjs";
+import { builtWith, inventory, readJson, root, sha256, verify } from "./verify.mjs";
 
 const config = readJson(join(root, "release/source.json"));
 const args = process.argv.slice(2);
@@ -42,7 +42,7 @@ const escapeHtml = (text) => text.replaceAll("&", "&amp;").replaceAll("<", "&lt;
 if (existsSync(output)) {
   assert.ok(existsSync(manifestPath), "Refusing to replace an unowned doc directory");
   const previous = readJson(manifestPath);
-  verify(output, previous, { ...config, ...previous.tools, rust: previous.tools.rustc.split(" ")[1], commit: previous.source.commit, domain: previous.domain });
+  verify(output, previous, builtWith(config, previous));
 }
 mkdirSync(join(root, ".release-work"), { recursive: true });
 const work = mkdtempSync(join(root, ".release-work/build-"));

@@ -52,6 +52,11 @@ export function verifyRuntime(directory, files) {
   }
 }
 
+export const builtWith = (config, record) => ({
+  ...config, ...record.tools, rust: record.tools.rustc.split(" ")[1],
+  repository: record.source.repository, commit: record.source.commit, domain: record.domain,
+});
+
 export function verify(directory, record, config) {
   assert.equal(record.source.commit, config.commit, "Release must match the reviewed source pin");
   assert.equal(record.source.repository, config.repository);

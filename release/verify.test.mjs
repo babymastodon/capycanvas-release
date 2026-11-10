@@ -4,7 +4,7 @@ import { cpSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync }
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
-import { inventory, readJson, root, sha256, verify, verifyRuntime } from "./verify.mjs";
+import { builtWith, inventory, readJson, root, sha256, verify, verifyRuntime } from "./verify.mjs";
 
 const config = readJson(join(root, "release/source.json"));
 const original = readJson(join(root, "release/manifest.json"));
@@ -17,6 +17,11 @@ function fixture(t) {
 
 test("committed package passes all deployment gates", () => {
   assert.match(verify(join(root, "doc"), original, config), /Wasm and notices verified/);
+});
+test("an existing package verifies against the pins it was built with when the source moves", () => {
+  const moved = { ...config, repository: "https://github.com/example/capycanvas", commit: "0".repeat(40), rust: "0.0.0" };
+  assert.throws(() => verify(join(root, "doc"), original, moved));
+  assert.match(verify(join(root, "doc"), original, builtWith(moved, original)), /Wasm and notices verified/);
 });
 test("tampered runtime fails before deployment", (t) => {
   const { directory, record } = fixture(t);

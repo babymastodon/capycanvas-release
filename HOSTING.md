@@ -9,10 +9,14 @@ the committed package.
 
 ## Deploy
 
-Log in once with `npx wrangler login` as a member of the Cloudflare account that
-owns the `capycanvas.art` zone. If that login can reach more than one account,
-set `CLOUDFLARE_ACCOUNT_ID` in your own environment. No account IDs, API tokens
-or keys are stored here. From an up-to-date `main`:
+The deploy workflow runs `release/cloudflare/deploy.mjs` after committing a
+build, with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` from the
+repository's `cloudflare` environment, which only `main` may use. The token
+needs **Workers Scripts: Edit** and **Workers R2 Storage: Edit**. No account IDs,
+API tokens or keys are stored here. To deploy from your own machine, log in with
+`npx wrangler login` as a member of the account that owns `capycanvas.art`
+(set `CLOUDFLARE_ACCOUNT_ID` if the login reaches several accounts) and run,
+from an up-to-date `main`:
 
 ```bash
 node release/cloudflare/deploy.mjs

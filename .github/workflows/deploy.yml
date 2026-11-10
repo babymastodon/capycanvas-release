@@ -17,6 +17,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
+    environment: cloudflare
     permissions:
       contents: write
     steps:
@@ -26,27 +27,29 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REF: ${{ inputs.ref }}
         run: |
-          commit=$(gh api "repos/capyatelier/capycanvas/commits/$REF" -q .sha)
-          if [ "$commit" = "$(jq -r .commit release/source.json)" ]; then echo "$commit is already deployed"; exit 0; fi
+          repository=$GITHUB_REPOSITORY_OWNER/capycanvas
+          commit=$(gh api "repos/$repository/commits/$REF" -q .sha)
+          if [ "$commit" = "$(jq -r .commit release/source.json)" ] && [ "https://github.com/$repository" = "$(jq -r .repository release/source.json)" ]; then echo "$commit is already built"; exit 0; fi
+          echo "repository=$repository" >> "$GITHUB_OUTPUT"
           echo "commit=$commit" >> "$GITHUB_OUTPUT"
       - if: steps.source.outputs.commit
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          repository: capyatelier/capycanvas
+          repository: ${{ steps.source.outputs.repository }}
           ref: ${{ steps.source.outputs.commit }}
           path: source
           persist-credentials: false
-      - if: steps.source.outputs.commit
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24'
       - if: steps.source.outputs.commit
         env:
           GH_TOKEN: ${{ github.token }}
           COMMIT: ${{ steps.source.outputs.commit }}
+          REPOSITORY: ${{ steps.source.outputs.repository }}
         run: |
           rust=$(sed -n 's/^  RUST_VERSION: "\(.*\)"$/\1/p' source/.github/workflows/release.yml)
-          jq --arg commit "$COMMIT" --arg rust "${rust:?}" '.commit = $commit | .rust = $rust' release/source.json > "$RUNNER_TEMP/source.json"
+          jq --arg repository "https://github.com/$REPOSITORY" --arg commit "$COMMIT" --arg rust "${rust:?}" '.repository = $repository | .commit = $commit | .rust = $rust' release/source.json > "$RUNNER_TEMP/source.json"
           mv "$RUNNER_TEMP/source.json" release/source.json
           pin() { jq -r ".$1" release/source.json; }
           rustup toolchain install "$(pin rust)" --profile minimal --component rust-docs --component rust-src --target wasm32-unknown-unknown
@@ -61,3 +64,8 @@ jobs:
           git add doc release/manifest.json release/source.json
           git commit -m "Deploy editor source ${COMMIT:0:7}"
           git push origin HEAD:main
+      - name: Deploy to Cloudflare
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node release/cloudflare/deploy.mjs

@@ -1,11 +1,11 @@
 # Capy Canvas PWA releases
 
-Built releases of [Capy Canvas](https://github.com/capyatelier/capycanvas) for
+Built releases of [Capy Canvas](https://github.com/babymastodon/capycanvas) for
 **https://editor.capycanvas.art/**. This repository owns hosting and final release
 layout. Application code, compilation, icons, license harvesting and PWA generation
 live in the source repository, normally checked out alongside this one as `../capycanvas`.
 
-The upstream remote is `git@github.com:capyatelier/capycanvas-release.git` (`origin`),
+The upstream remote is `git@github.com:babymastodon/capycanvas-release.git` (`origin`),
 with releases on `main`.
 
 | Path | Purpose |
@@ -22,12 +22,12 @@ with releases on `main`.
 ## Publish
 
 Run **Actions → Deploy editor → Run workflow** to deploy the current `main` of
-`capyatelier/capycanvas`. `.github/workflows/deploy.yml` builds that commit with
-`release/build.mjs` and the pinned tools and commits the package, pin and manifest
-together. Then pull `main` and run `node release/cloudflare/deploy.mjs`, which
-verifies the committed bytes and deploys `doc/` ([HOSTING.md](HOSTING.md)).
-Existing app tabs keep their current version until closed. To roll back, run the
-workflow with an earlier commit or tag as `ref`, then deploy. Do not force-push
+`capycanvas` from the same GitHub owner. `.github/workflows/deploy.yml` builds that
+commit with `release/build.mjs` and the pinned tools, commits the package, pin and
+manifest together, then runs `release/cloudflare/deploy.mjs`, which verifies the
+committed bytes and deploys `doc/` ([HOSTING.md](HOSTING.md)). Existing app tabs
+keep their current version until closed. To roll back, run the workflow with an
+earlier commit or tag as `ref`. Do not force-push
 release history.
 
 ## Build locally

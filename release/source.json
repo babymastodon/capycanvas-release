@@ -1,5 +1,5 @@
 {
-  "repository": "https://github.com/capyatelier/capycanvas",
+  "repository": "https://github.com/babymastodon/capycanvas",
   "commit": "1eb7d6d16975cb08f72da1df3fc6fb5d8b08f519",
   "domain": "editor.capycanvas.art",
   "rust": "1.99.0",

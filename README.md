@@ -13,26 +13,22 @@ with releases on `main`.
 | `doc/` | Complete committed static PWA, including Wasm and license notices |
 | `release/` | Packaging, verification, license policy and pinned source/tools |
 | `release/manifest.json` | Source revision, lockfile hash, dependency inventory, checks, Wasm imports and every published file's SHA-256 |
-| `.github/workflows/deploy.yml` | Build a Capy Canvas commit, `main` by default, commit it and start Pages |
-| `.github/workflows/pages.yml` | Verify the committed package and deploy `doc/` |
+| `.github/workflows/deploy.yml` | Build a Capy Canvas commit, `main` by default, and commit it |
+| `release/cloudflare/` | Verify the committed package and deploy `doc/` to Cloudflare |
 | [AGENTS.md](AGENTS.md) | How deployments run and how to check the live site |
 | [AUDIT.md](AUDIT.md) | Initial GPL/LGPL and build-process audit, scope and follow-up policy |
-| [HOSTING.md](HOSTING.md) | GitHub Pages, Porkbun and Cloudflare setup |
-
-GitHub Pages' branch publishing supports `/` or `/docs`, not `/doc`. The included
-Actions workflow uploads **the contents of `doc/`** as the site root; select
-**GitHub Actions** in repository Settings → Pages. The Pages workflow only
-verifies and uploads; compilation happens in the deploy workflow. [GitHub documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+| [HOSTING.md](HOSTING.md) | Cloudflare hosting for editor.capycanvas.art |
 
 ## Publish
 
 Run **Actions → Deploy editor → Run workflow** to deploy the current `main` of
 `capyatelier/capycanvas`. `.github/workflows/deploy.yml` builds that commit with
-`release/build.mjs` and the pinned tools, commits the package, pin and manifest
-together, and starts the Pages workflow, which verifies the committed bytes and
-deploys `doc/`. Existing app tabs keep their current version until closed. To
-roll back, run the workflow with an earlier commit or tag as `ref`. Do not
-force-push release history.
+`release/build.mjs` and the pinned tools and commits the package, pin and manifest
+together. Then pull `main` and run `node release/cloudflare/deploy.mjs`, which
+verifies the committed bytes and deploys `doc/` ([HOSTING.md](HOSTING.md)).
+Existing app tabs keep their current version until closed. To roll back, run the
+workflow with an earlier commit or tag as `ref`, then deploy. Do not force-push
+release history.
 
 ## Build locally
 
@@ -77,8 +73,7 @@ transaction across the directory and manifest. Run only one release build at a t
 
 The sole hosting addition is `doc/CNAME`. The source packager's local ownership
 marker is removed. All precached files and `sw.js` are copied byte-for-byte;
-`CNAME` is outside the precache and does not affect the app. Actions deployments
-still require the custom domain in GitHub's Pages settings.
+`CNAME` is outside the precache and does not affect the app.
 
 For the full browser suite, use Chrome with a working Wayland session and hardware
 WebGPU (the harness uses a disposable browser profile):

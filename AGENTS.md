@@ -3,15 +3,15 @@
 This repository hosts the built Capy Canvas PWA at
 https://editor.capycanvas.art/. The editor runs the latest `main` of
 `capyatelier/capycanvas`, built on GitHub when someone runs the deploy workflow,
-never on a workstation.
+never on a workstation, and served by Cloudflare.
 
 - `.github/workflows/deploy.yml` builds the chosen source commit with
   `release/build.mjs`, which runs the license policy, notice and package checks,
-  commits `doc/`, `release/manifest.json` and the pinned `release/source.json`,
-  and starts `pages.yml`, which verifies the committed package and publishes
-  `doc/`.
-- A request to "deploy" means running that workflow, then confirming the Pages
-  run and the live site:
+  commits `doc/`, `release/manifest.json` and the pinned `release/source.json`.
+- `release/cloudflare/deploy.mjs` verifies the committed package and publishes
+  `doc/` to Cloudflare ([HOSTING.md](HOSTING.md)).
+- A request to "deploy" means running that workflow, then pulling `main`,
+  running `node release/cloudflare/deploy.mjs` and confirming the live site:
 
   ```bash
   gh workflow run deploy.yml --repo capyatelier/capycanvas-release
@@ -19,7 +19,12 @@ never on a workstation.
   ```
 
   The first deploys the current `main`; the second deploys a specific branch,
-  tag or commit, which is also how to roll back.
+  tag or commit, which is also how to roll back. Wait for the workflow, then:
+
+  ```bash
+  git pull --ff-only
+  node release/cloudflare/deploy.mjs
+  ```
 - Never build, hand-edit or commit `doc/` locally; local builds (README) only
   test changes to `release/`.
 - Hosting and packaging scripts belong in `release/`; application build logic
@@ -31,7 +36,7 @@ never on a workstation.
 
 ## Verify the live site
 
-After the Pages run succeeds, compare the live index with the deployed
+After the Cloudflare deploy succeeds, compare the live index with the deployed
 release's recorded SHA-256:
 
 ```bash

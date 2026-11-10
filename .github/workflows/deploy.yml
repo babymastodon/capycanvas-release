@@ -18,7 +18,6 @@ jobs:
   deploy:
     runs-on: ubuntu-24.04
     permissions:
-      actions: write
       contents: write
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -62,4 +61,3 @@ jobs:
           git add doc release/manifest.json release/source.json
           git commit -m "Deploy editor source ${COMMIT:0:7}"
           git push origin HEAD:main
-          gh workflow run pages.yml --ref main

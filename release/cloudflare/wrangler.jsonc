@@ -1,9 +1,11 @@
 {
   "name": "capycanvas-editor",
-  "main": "worker.js",
   "compatibility_date": "2026-11-01",
-  "assets": { "directory": "../../.release-work/cloudflare-assets", "binding": "ASSETS", "html_handling": "none" },
-  "r2_buckets": [{ "binding": "LARGE_FILES", "bucket_name": "capycanvas-editor" }],
+  "assets": {
+    "directory": "../../.release-work/cloudflare-assets",
+    "html_handling": "none",
+    "not_found_handling": "single-page-application"
+  },
   "routes": [{ "pattern": "editor.capycanvas.art", "zone_name": "capycanvas.art", "custom_domain": true }],
   "workers_dev": false,
   "preview_urls": false

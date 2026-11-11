@@ -11,6 +11,8 @@ const site = join(root, "doc");
 const assets = join(root, ".release-work/cloudflare-assets");
 const config = join(root, "release/cloudflare/wrangler.jsonc");
 const wrangler = (...args) => execFileSync("npx", ["--yes", "wrangler@4.160.0", ...args, "--config", config], { stdio: "inherit" });
+const web = process.env.CAPYCANVAS_WEB;
+if (!web) throw new Error("Set CAPYCANVAS_WEB to a capycanvas-web checkout");
 
 console.log(verify(site, readJson(join(root, "release/manifest.json")), readJson(join(root, "release/source.json"))));
 rmSync(assets, { recursive: true, force: true });
@@ -28,4 +30,5 @@ for (const path of filesIn(site)) {
   redirects.push(`/${path} ${largeFiles.origin}/${largeFiles.prefix}/${path} 302`);
 }
 writeFileSync(join(assets, "_redirects"), redirects.map((line) => `${line}\n`).join(""));
+execFileSync("node", [join(web, "site/scripts/allow-downloads.mjs")], { stdio: "inherit" });
 wrangler("deploy");

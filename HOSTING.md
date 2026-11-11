@@ -16,11 +16,11 @@ file return `index.html`, the single-page fallback that also answers `/`.
 The deploy workflow runs `release/cloudflare/deploy.mjs` after committing a
 build, with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` from the
 repository's `cloudflare` environment, which only `main` may use. The token
-needs **Workers Scripts: Edit** and **Workers R2 Storage: Edit**. No account IDs,
-API tokens or keys are stored here. To deploy from your own machine, log in with
-`npx wrangler login` as a member of the account that owns `capycanvas.art`
-(set `CLOUDFLARE_ACCOUNT_ID` if the login reaches several accounts) and run,
-from an up-to-date `main`:
+needs **Workers Scripts: Edit**, **Workers R2 Storage: Edit** and **Zone WAF:
+Edit**. No account IDs, API tokens or keys are stored here. To deploy from your
+own machine, set `CLOUDFLARE_API_TOKEN` to such a token, `CLOUDFLARE_ACCOUNT_ID`
+to the account that owns `capycanvas.art` and `CAPYCANVAS_WEB` to a
+`capycanvas-web` checkout, then run, from an up-to-date `main`:
 
 ```bash
 node release/cloudflare/deploy.mjs
@@ -28,7 +28,9 @@ node release/cloudflare/deploy.mjs
 
 The script runs the same checks as `release/verify.mjs`, uploads large
 fingerprinted files to R2 with an immutable cache lifetime, writes their
-`_redirects` entries, then deploys the remaining files with the Worker. The Worker owns the `editor` DNS record through
+`_redirects` entries, adds them to the downloads allowlist with
+`capycanvas-web`'s `site/scripts/allow-downloads.mjs` (downloads blocks every
+path not in the bucket), then deploys the remaining files with the Worker. The Worker owns the `editor` DNS record through
 its custom domain; never point `editor` at another host by hand.
 
 ## Check

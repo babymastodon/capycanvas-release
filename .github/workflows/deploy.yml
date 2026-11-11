@@ -64,8 +64,16 @@ jobs:
           git add doc release/manifest.json release/source.json
           git commit -m "Deploy editor source ${COMMIT:0:7}"
           git push origin HEAD:main
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ${{ github.repository_owner }}/capycanvas-web
+          path: .release-work/capycanvas-web
+          persist-credentials: false
+          sparse-checkout: site/scripts/allow-downloads.mjs
+          sparse-checkout-cone-mode: false
       - name: Deploy to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CAPYCANVAS_WEB: ${{ github.workspace }}/.release-work/capycanvas-web
         run: node release/cloudflare/deploy.mjs

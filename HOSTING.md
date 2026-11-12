@@ -27,8 +27,9 @@ node release/cloudflare/deploy.mjs
 ```
 
 The script runs the same checks as `release/verify.mjs`, uploads large
-fingerprinted files to R2 with an immutable cache lifetime, writes their
-`_redirects` entries, adds them to the downloads allowlist with
+fingerprinted files to R2, brotli-compressed at maximum quality, with an
+immutable cache lifetime, writes their `_redirects` entries, adds them to the
+downloads allowlist with
 `capycanvas-web`'s `site/scripts/allow-downloads.mjs` (downloads blocks every
 path not in the bucket), then deploys the remaining files with the Worker. The Worker owns the `editor` DNS record through
 its custom domain; never point `editor` at another host by hand.

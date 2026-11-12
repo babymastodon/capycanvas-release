@@ -25,8 +25,9 @@ never on a workstation, and served by Cloudflare.
 - Hosting and packaging scripts belong in `release/`; application build logic
   belongs in the source repository. The deploy takes the Rust version from the
   source repository's release workflow. Change the other tool pins in
-  `release/source.json` only together with a deploy, because `pages.yml` checks
-  the committed package against them, and never to get past a failed gate.
+  `release/source.json` only together with a deploy, because
+  `release/cloudflare/deploy.mjs` checks the committed package against them,
+  and never to get past a failed gate.
 - Never force-push.
 
 ## Verify the live site
@@ -43,7 +44,8 @@ import urllib.request
 with open('release/manifest.json') as file:
     manifest = json.load(file)
 request = urllib.request.Request(
-    'https://editor.capycanvas.art/', headers={'Cache-Control': 'no-cache'}
+    'https://editor.capycanvas.art/',
+    headers={'Cache-Control': 'no-cache', 'User-Agent': 'capycanvas-release-check'},
 )
 with urllib.request.urlopen(request, timeout=30) as response:
     assert response.status == 200, response.status

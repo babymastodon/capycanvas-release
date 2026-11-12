@@ -1,13 +1,13 @@
 import { createNavigationControls } from "./navigation-controls.3ffbb38e54bfa2032e9a.js";
 import {createScope} from './histogram.5068877614d482a87895.js';
 import {liveCopy,bindCopy} from './localization.feed520889eb8a39d851.js';
-import { createRasterWorker } from './raster-worker-client.ac1ea1a00eedd1821d15.js';
-import { chooseColor } from './color-editor.6fbfded7cf196bb1ad3d.js';
+import { createRasterWorker } from './raster-worker-client.33cf29b4ae399d73df7f.js';
+import { chooseColor } from './color-editor.a270a88272b0cb897555.js';
 import { wheelPainter, wheelPicker, hueStopCache, wheelHit, rgba } from './color-wheel.d19ef994d5736bb42b41.js';
 import { colorTouchInput } from './color-touch.58763ac64b037025337d.js';
 import { createRangeControl } from './range-control.a1fff5cc738e8036ec60.js';
-import { actionField, checklistField, choiceField } from './toolbar-components.2500400a851b275da53b.js';
-import {gradientEditor} from './gradient.df6615381e617ca248e8.js';
+import { actionField, checklistField, choiceField } from './toolbar-components.9512f317006d576f663d.js';
+import {gradientEditor} from './gradient.3e73d59dc58cfa480361.js';
 // DOM widgets for shared editor models. Rust owns tool/color/geometry policy.
 export function createEditorPanels({ selectionUi, app, wasmModule, state, element, button, icon, dropdown, numberField, dispatch, asset, wake, applyChange, contentChanged, showContext }) {
   const catalog=liveCopy(app,"catalog"),copy=catalog.native_copy;

@@ -5,7 +5,7 @@ export function createRasterWorker(module,reportGpu=()=>{},storage) {
   const outputs=new Map(),reads=new Set();
   function owner(kind) {
     if (owners.has(kind)) return owners.get(kind);
-    const worker = new Worker(new URL("./raster-worker.61b8272b15c9c5fb3a78.js", import.meta.url), {type:"module"});
+    const worker = new Worker(new URL("./raster-worker.be2bfe3aeb90b4d5b680.js", import.meta.url), {type:"module"});
     const pending = new Map();
     let closed=false;
     let idleTimer;

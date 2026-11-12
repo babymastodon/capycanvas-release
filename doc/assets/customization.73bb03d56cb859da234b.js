@@ -1,7 +1,7 @@
 import { brushSizeGrid } from "./brush-sizes.964142ec1d0ad9621f25.js";
 import { composingKey } from "./text-input.821066b4c3204772eddd.js";
-import { createToolbarComponent } from "./toolbar-components.2500400a851b275da53b.js";
-import { colorButton, pickerButtonAction, updatePaintPairIcon } from './color-controls.d8c282e33946f884cd7e.js';
+import { createToolbarComponent } from "./toolbar-components.9512f317006d576f663d.js";
+import { colorButton, pickerButtonAction, updatePaintPairIcon } from './color-controls.91ae60059ab7e4ebdc89.js';
 import {liveCopy} from './localization.feed520889eb8a39d851.js';
 import {middleEllipsis} from './text-layout.33016bf56f6708faace8.js';
 import {createDialogHost} from './dialog-host.414f8c204f4bc52749e1.js';

@@ -4,7 +4,7 @@ import { liveCopy, bindCopy } from './localization.feed520889eb8a39d851.js';
 import {createProfilePicker} from './export-controls.3b3dabf471be4feff287.js';
 
 // A single package-rewritten URL for the illustration and print LUT workers.
-const proofWorkerUrl=new URL("./proof-worker.b928b3bb8675e01c58fa.js",import.meta.url);
+const proofWorkerUrl=new URL("./proof-worker.c4f667484350d369e698.js",import.meta.url);
 
 // One CPU worker per editor. Termination cancels synchronous Wasm immediately
 // and releases its high-water heap. A replacement never queues behind old work.

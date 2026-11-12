@@ -4,9 +4,9 @@ import {liveCopy,bindCopy} from './localization.feed520889eb8a39d851.js';
 import {gestureNumberField} from "./numeric.85d71a15b72e22505bfa.js";
 import {createCurveEditor} from "./curve-editor.e59c2b8ed90e66efece9.js";
 import {strokeRecordingControl} from './stroke-recording.027086bd275d3bf529bd.js';
-import {colorButton, colorCss} from './color-controls.74c8c1078ed920ef13b9.js';
+import {colorButton, colorCss} from './color-controls.d8c282e33946f884cd7e.js';
 import {filterPreviewView} from './filter-previews.28987f404d05186e8456.js';
-import {gradientEditor} from './gradient.abbb18511efdd6782eb1.js';
+import {gradientEditor} from './gradient.df6615381e617ca248e8.js';
 import {chooseTexture,paperThumbnail} from './paper-picker.e28da7c8f8f67a4857ca.js';
 import {addScrollbar} from './scrollbars.4afff20abf66f8e418f6.js';
 // Views of the shared Rust effect/property schema; no filter-specific UI logic.

@@ -1,6 +1,6 @@
 {
   "repository": "https://github.com/babymastodon/capycanvas",
-  "commit": "a1c6cb1aa42faca74d83148d689213c27fbf7487",
+  "commit": "d923689ffb5a2a36781e22e47249cd9a2e734c33",
   "domain": "editor.capycanvas.art",
   "rust": "1.99.0",
   "wasmBindgen": "0.2.128",

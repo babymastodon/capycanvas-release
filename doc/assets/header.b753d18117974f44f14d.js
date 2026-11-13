@@ -2,7 +2,7 @@ import {liveCopy,bindCopy} from './localization.feed520889eb8a39d851.js';
 import {composingKey} from './text-input.821066b4c3204772eddd.js';
 // Retained DOM projection of Rust's title bar. DOM measurements are inputs;
 // allocation, overflow, drag slots, validation and publication stay in Rust.
-import { pickerButtonAction, updatePaintPairIcon } from './color-controls.91ae60059ab7e4ebdc89.js';
+import { pickerButtonAction, updatePaintPairIcon } from './color-controls.ef501b038ea70ba27a48.js';
 
 export function headerButtonHint(spec, command, editing) {
   return !editing && spec.disabled_reason || command?.tooltip || spec.label;
@@ -334,7 +334,7 @@ export function createHeader({app, state, paintPair, workspace, element, button,
     }
     g.zones.forEach((b,i)=>{zones[i].hidden=!editing;place(zones[i],b);});
     while(bars.length<g.bars.length){const bar=element('div','header-bar');bar.setAttribute('aria-hidden','true');root.prepend(bar);bars.push(bar);}
-    bars.forEach((bar,i)=>{bar.hidden=!g.bars[i];if(g.bars[i])place(bar,g.bars[i].bounds);});
+    bars.forEach((bar,i)=>{bar.hidden=!g.bars[i];if(g.bars[i]){place(bar,g.bars[i].bounds);bar.dataset.headerBarItems=g.bars[i].items.join(' ');}else delete bar.dataset.headerBarItems;});
     const joined=new Set(g.bars.flatMap(b=>b.items));
     for(const [id,r] of records)r.root.classList.toggle('in-bar',joined.has(id));
     overflow.forEach((node,i)=>node.classList.toggle('in-bar',g.bars.some(b=>b.overflow===BigInt(i))));

@@ -1,4 +1,4 @@
-import {colorButton} from './color-controls.91ae60059ab7e4ebdc89.js';
+import {colorButton} from './color-controls.ef501b038ea70ba27a48.js';
 import {createNumberField} from './numeric.85d71a15b72e22505bfa.js';
 import {liveCopy,bindCopy} from './localization.feed520889eb8a39d851.js';
 

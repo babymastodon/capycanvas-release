@@ -1,4 +1,4 @@
-import {selectedTabSurface} from './workspace-chrome.686d9cbeea38148254fb.js';
+import {selectedTabSurface} from './workspace-chrome.131ba73a2b27bc949a2e.js';
 import {createPanelVectorQueue} from './panel-vector-queue.766b658faf2c2ee48009.js';
 
 const ns='http://www.w3.org/2000/svg';

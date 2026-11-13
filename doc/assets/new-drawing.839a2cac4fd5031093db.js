@@ -2,7 +2,7 @@ import {createContextPopover,contextMenuInitialHighlight} from './context-popove
 import {createDialogHost} from './dialog-host.414f8c204f4bc52749e1.js';
 import {createPageKit} from './page-kit.8cb0ef137e9fd2f8a2d7.js';
 import {createWorkflowStack} from './workflow-stack.135b34c4fed2c122418d.js';
-import {colorForm} from './color-editor.a270a88272b0cb897555.js';
+import {colorForm} from './color-editor.d44cfc12f2fb7e57c9f8.js';
 import {paperThumbnail} from './paper-picker.e28da7c8f8f67a4857ca.js';
 import {sizeFields} from './size-dialog.a32dd9b89696807de04d.js';
 import {addScrollbar} from './scrollbars.4afff20abf66f8e418f6.js';

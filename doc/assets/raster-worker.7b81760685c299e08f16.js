@@ -1,4 +1,4 @@
-import init, * as wasm from "./pkg/layer_web.7fb58a3b8c245a0ce7b2.js";
+import init, * as wasm from "./pkg/layer_web.945dedd3cae43b7a7245.js";
 import {createPortTransport} from './store-worker-client.8c2d4afc543b9c130670.js';
 import {panelVectorPaths} from './panel-vector-paths.4da06b6621b49409ad96.js';
 import {postTransferred,releaseTransferred,backingOffer} from './raster-transfer.f14421986ac863177dbf.js';
